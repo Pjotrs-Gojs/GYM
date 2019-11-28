@@ -1,9 +1,9 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function (Controller) {
+	"./BaseController"
+], function (BaseController) {
 	"use strict";
 
-	return Controller.extend("com.GYM.GYM.controller.Master", {
+	return BaseController.extend("com.GYM.GYM.controller.Details", {
 		onInit: function () {
 
 		}

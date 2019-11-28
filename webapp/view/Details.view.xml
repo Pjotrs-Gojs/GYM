@@ -1,4 +1,4 @@
-<mvc:View controllerName="com.GYM.GYM.controller.Master" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+<mvc:View controllerName="com.GYM.GYM.controller.Details" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
 	<App id="app">
 		<pages>
 			<Page id="page" showHeader="false">
