@@ -1,0 +1,35 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+	<edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+		<Schema xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+			xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm"
+			Namespace="com.GYM.Service.GYM">
+			<EntityType Name="ZGymType">
+				<Key><PropertyRef Name="GYMID"/></Key><Property Name="GYMID" Type="Edm.Int32" Nullable="false"/><Property Name="NAME" Type="Edm.String" MaxLength="20"/><Property Name="STREET" Type="Edm.String" MaxLength="20"/><Property Name="STREETNUM" Type="Edm.String" MaxLength="20"/><Property Name="FLOOR" Type="Edm.Int32"/></EntityType>
+			<EntityType Name="ZTrainerType">
+				<Key><PropertyRef Name="TRAINERID"/></Key><Property Name="TRAINERID" Type="Edm.Int32" Nullable="false"/><Property Name="TIMEFROM" Type="Edm.Time"/><Property Name="TIMETO" Type="Edm.Time"/><Property Name="ZDATE" Type="Edm.DateTime"/><Property Name="LOCATION" Type="Edm.String" MaxLength="20"/><Property Name="ZNAME" Type="Edm.String" MaxLength="20"/><Property Name="ZSURNAME" Type="Edm.String" MaxLength="20"/></EntityType>
+			<EntityType Name="ZTrainingTypeType">
+				<Key><PropertyRef Name="TRAININGTYPEID"/></Key><Property Name="TRAININGTYPEID" Type="Edm.Int32" Nullable="false"/><Property Name="NAME" Type="Edm.String" MaxLength="20"/><Property Name="DURATION" Type="Edm.Time"/></EntityType>
+			<EntityType Name="ZTrainingTypesPerTrainerType">
+				<Key><PropertyRef Name="ID"/></Key><Property Name="ID" Type="Edm.Int32" Nullable="false"/><Property Name="TRAINERID" Type="Edm.Int32"/><Property Name="TRAININGTYPEID" Type="Edm.Int32"/></EntityType>
+			<EntityType Name="ZTrainingType">
+				<Key><PropertyRef Name="TRAININGID"/></Key><Property Name="TRAININGID" Type="Edm.Int32" Nullable="false"/><Property Name="TRAINERID" Type="Edm.Int32"/><Property Name="TRAININGTYPEID" Type="Edm.Int32"/><Property Name="TRAININGTIME" Type="Edm.Time"/><Property Name="TRAININGDATE" Type="Edm.DateTime"/><Property Name="TRAINEENAME" Type="Edm.String" MaxLength="20"/><Property Name="TRAINEESURNAME" Type="Edm.String" MaxLength="20"/></EntityType>
+			<EntityType Name="TPTType">
+				<Key><PropertyRef Name="ID"/></Key><Property Name="ZNAME" Type="Edm.String" MaxLength="20"/><Property Name="ZSURNAME" Type="Edm.String" MaxLength="20"/><Property Name="NAME" Type="Edm.String" MaxLength="20"/><Property Name="TRAINERID" Type="Edm.Int32"/><Property Name="ID" Type="Edm.Int32" Nullable="false"/><Property Name="DURATION" Type="Edm.Time"/><NavigationProperty Name="ZTrainerRef" Relationship="com.GYM.Service.GYM.ZTrainerToTPTType" FromRole="TPTDependent"
+					ToRole="ZTrainerPrincipal"/></EntityType>
+			<Association Name="ZGymToZTrainerType"><End Type="com.GYM.Service.GYM.ZGymType" Role="ZGymPrincipal" Multiplicity="1"/><End Type="com.GYM.Service.GYM.ZTrainerType" Role="ZTrainerDependent" Multiplicity="*"/></Association>
+			<Association Name="ZTrainerToZTrainingTypesPerTrainerType"><End Type="com.GYM.Service.GYM.ZTrainerType" Role="ZTrainerPrincipal" Multiplicity="1"/><End Type="com.GYM.Service.GYM.ZTrainingTypesPerTrainerType" Role="ZTrainingTypesPerTrainerDependent" Multiplicity="*"/></Association>
+			<Association Name="ZTrainingTypeToZTrainingTypesPerTrainerType"><End Type="com.GYM.Service.GYM.ZTrainingTypeType" Role="ZTrainingTypePrincipal" Multiplicity="1"/><End Type="com.GYM.Service.GYM.ZTrainingTypesPerTrainerType" Role="ZTrainingTypesPerTrainerDependent" Multiplicity="*"/></Association>
+			<Association Name="ZTrainerToZTrainingType"><End Type="com.GYM.Service.GYM.ZTrainerType" Role="ZTrainerPrincipal" Multiplicity="1"/><End Type="com.GYM.Service.GYM.ZTrainingType" Role="ZTrainingDependent" Multiplicity="*"/></Association>
+			<Association Name="ZTrainingTypeToZTrainingType"><End Type="com.GYM.Service.GYM.ZTrainingTypeType" Role="ZTrainingTypePrincipal" Multiplicity="1"/><End Type="com.GYM.Service.GYM.ZTrainingType" Role="ZTrainingDependent" Multiplicity="*"/></Association>
+			<Association Name="ZTrainerToTPTType"><End Type="com.GYM.Service.GYM.ZTrainerType" Role="ZTrainerPrincipal" Multiplicity="1"/><End Type="com.GYM.Service.GYM.TPTType" Role="TPTDependent" Multiplicity="*"/></Association>
+			<EntityContainer Name="GYM" m:IsDefaultEntityContainer="true"><EntitySet Name="ZGym" EntityType="com.GYM.Service.GYM.ZGymType"/><EntitySet Name="ZTrainer" EntityType="com.GYM.Service.GYM.ZTrainerType"/><EntitySet Name="ZTrainingType" EntityType="com.GYM.Service.GYM.ZTrainingTypeType"/><EntitySet Name="ZTrainingTypesPerTrainer" EntityType="com.GYM.Service.GYM.ZTrainingTypesPerTrainerType"/><EntitySet Name="ZTraining" EntityType="com.GYM.Service.GYM.ZTrainingType"/><EntitySet Name="TPT" EntityType="com.GYM.Service.GYM.TPTType"/>
+				<AssociationSet Name="ZGymToZTrainer" Association="com.GYM.Service.GYM.ZGymToZTrainerType"><End Role="ZGymPrincipal" EntitySet="ZGym"/><End Role="ZTrainerDependent" EntitySet="ZTrainer"/></AssociationSet>
+				<AssociationSet Name="ZTrainerToZTrainingTypesPerTrainer" Association="com.GYM.Service.GYM.ZTrainerToZTrainingTypesPerTrainerType"><End Role="ZTrainerPrincipal" EntitySet="ZTrainer"/><End Role="ZTrainingTypesPerTrainerDependent" EntitySet="ZTrainingTypesPerTrainer"/></AssociationSet>
+				<AssociationSet Name="ZTrainingTypeToZTrainingTypesPerTrainer" Association="com.GYM.Service.GYM.ZTrainingTypeToZTrainingTypesPerTrainerType"><End Role="ZTrainingTypePrincipal" EntitySet="ZTrainingType"/><End Role="ZTrainingTypesPerTrainerDependent" EntitySet="ZTrainingTypesPerTrainer"/></AssociationSet>
+				<AssociationSet Name="ZTrainerToZTraining" Association="com.GYM.Service.GYM.ZTrainerToZTrainingType"><End Role="ZTrainerPrincipal" EntitySet="ZTrainer"/><End Role="ZTrainingDependent" EntitySet="ZTraining"/></AssociationSet>
+				<AssociationSet Name="ZTrainingTypeToZTraining" Association="com.GYM.Service.GYM.ZTrainingTypeToZTrainingType"><End Role="ZTrainingTypePrincipal" EntitySet="ZTrainingType"/><End Role="ZTrainingDependent" EntitySet="ZTraining"/></AssociationSet>
+				<AssociationSet Name="ZTrainerToTPT" Association="com.GYM.Service.GYM.ZTrainerToTPTType"><End Role="ZTrainerPrincipal" EntitySet="ZTrainer"/><End Role="TPTDependent" EntitySet="TPT"/></AssociationSet>
+			</EntityContainer>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

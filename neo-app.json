@@ -36,6 +36,14 @@
         "entryPath": "/test-resources"
       },
       "description": "SAPUI5 Test Resources"
+    },
+    {
+      "path": "/BB",
+      "target": {
+        "type": "destination",
+        "name": "BB"
+      },
+      "description": "BB"
     }
   ],
   "sendWelcomeFileRedirect": true
