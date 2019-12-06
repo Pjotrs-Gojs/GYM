@@ -1,0 +1,13 @@
+<mvc:View
+	controllerName="com.GYM.GYM.controller.DetailObjectNotFound"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+
+	<MessagePage
+		id="page"
+		icon="sap-icon://product"
+		description=""
+>
+	</MessagePage>
+
+</mvc:View>

@@ -1,11 +1,82 @@
-<mvc:View controllerName="com.GYM.GYM.controller.Details" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
-	<App id="app">
-		<pages>
-			<Page id="page" showHeader="false">
-				<content>
-					
-				</content>
-			</Page>
-		</pages>
-	</App>
+<mvc:View
+	controllerName="com.GYM.GYM.controller.Details" 
+	xmlns="sap.m"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:footerbar="sap.ushell.ui.footerbar"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified">
+
+	<semantic:SemanticPage id="page" busy="{detailsView>/busy}" busyIndicatorDelay="{detailsView>/delay}">
+		<semantic:titleHeading>
+			<Title id="titleDetails" text="Trainer: {ZNAME} {ZSURNAME}, Working place - {LOCATION}" level="H1"/>
+		</semantic:titleHeading>
+		<semantic:headerContent>
+			<Title text="Available Training Types: "/>
+			<Table items="{ZTrainerRef}">
+				<items>
+					<ColumnListItem type="Active" id="item1">
+						<cells>
+							<Text text="{NAME}"/>
+							<Text text="{ path: 'DURATION', formatter: '.formatter.Time' }"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+				<columns>
+					<Column width="40%">
+						<Text text="{i18n>TrainingName}"/>
+					</Column>
+					<Column width="40%">
+						<Text text="{i18n>Duration}"/>
+					</Column>
+				</columns>
+			</Table>
+		</semantic:headerContent>
+		<semantic:content>
+			<VBox>
+				<SinglePlanningCalendar
+					id="SPC1"
+					class="sapUiSmallMarginTop"
+					title= "Trainer Calendar"
+					fullDay="false"
+					viewChange="handleViewChange"
+					appointmentSelect="handleAppointmentSelect"
+					headerDateSelect="handleHeaderDateSelect"
+					startDateChange="handleStartDateChange"
+					appointmentDrop="handleAppointmentDrop"
+					appointmentResize="handleAppointmentResize"
+					appointmentCreate="handleAppointmentCreateDnD"
+					moreLinkPress="handleMoreLinkPress">
+					<actions>
+						<Button id="newWorkout" press="onAdd" text="Sign up for a Workout" type="Reject" tooltip="Add new appointment" />
+					</actions>
+					<views>
+						<SinglePlanningCalendarWeekView key="WeekView" title="Week" />
+						<SinglePlanningCalendarWorkWeekView key="WorkWeekView" title="Work Week" />
+						<SinglePlanningCalendarDayView key="DayView" title="Day" />
+						<SinglePlanningCalendarMonthView key="MonthView" title="Month" />
+					</views>
+					<appointments>
+						<u:CalendarAppointment
+							title= "{title}"
+							text= "{text}"
+							type= "{type}"
+							icon= "{icon}"
+							startDate= "{startDate}"
+							endDate= "{endDate}">
+						</u:CalendarAppointment>
+					</appointments>
+				</SinglePlanningCalendar>
+			</VBox>
+		</semantic:content>
+		<!--Semantic ShareMenu Buttons-->
+
+		<semantic:closeAction>
+			<semantic:CloseAction
+					id="closeColumn"
+					press=".onCloseDetailPress"/>
+		</semantic:closeAction>
+
+	</semantic:SemanticPage>
+
 </mvc:View>

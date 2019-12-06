@@ -78,11 +78,9 @@
 			}
 		},
 		"resources": {
-			"css": [
-				{
-					"uri": "css/style.css"
-				}
-			]
+			"css": [{
+				"uri": "css/style.css"
+			}]
 		},
 		"routing": {
 			"config": {
@@ -90,34 +88,27 @@
 				"viewType": "XML",
 				"async": true,
 				"viewPath": "com.GYM.GYM.view",
-				"controlAggregation": "pages",
-				"controlId": "app",
-				"clearControlAggregation": false
+				"controlId": "layout",
+				"controlAggregation": "beginColumnPages"
 			},
-			"routes": [
-				{
-					"pattern": "",
-					"name": "Master",
-					"target": "Master"
-				},
-				{
-					"pattern": "ZTrainer/{TrainerID}",
-					"name": "Details",
-					"target": [
-						"Master",
-						"Details"
-					]
-				}
-			],
+			"routes": [{
+				"pattern": "",
+				"name": "Master",
+				"target": "Master"
+			}, {
+				"pattern": "Trainer/{TrainerID}",
+				"name": "Details",
+				"target": ["Master", "Details"]
+			}],
 			"targets": {
 				"Master": {
 					"viewName": "Master",
-					"viewLevel": 1,
+					"viewLevel": 0,
 					"viewId": "Master"
 				},
 				"Details": {
-					"viewName": "Detail",
-					"viewId": "Detail",
+					"viewName": "Details",
+					"viewId": "Details",
 					"viewLevel": 1,
 					"controlAggregation": "midColumnPages"
 				}

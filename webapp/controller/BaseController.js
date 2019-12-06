@@ -58,7 +58,7 @@ sap.ui.define([
 				// eslint-disable-next-line sap-no-history-manipulation
 				history.go(-1);
 			} else {
-				this.getRouter().navTo("master", {}, true);
+				this.getRouter().navTo("Master", {}, true);
 			}
 		}
 

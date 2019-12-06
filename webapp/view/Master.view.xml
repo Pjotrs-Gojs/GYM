@@ -8,32 +8,39 @@
 			<Page id="page" showHeader="false">
 				<content>
 					<Toolbar>
-						<Title text="Trainers"/>
+						<Title text="{i18n>TrainersTitle}"/>
 						<ToolbarSpacer/>
 						<ComboBox
+							id="dropDown"
 							showSecondaryValues= "true"
+							change = "dropDownSelect"
 							items="{
 								path: '/ZGym',
 								sorter: { path: 'NAME' }
 							}">
 							<core:ListItem key="{NAME}" text="{NAME}" additionalText = "{STREET},{STREETNUM}"/>
 						</ComboBox>
+						<Button id="x" press="removeSelection" icon="sap-icon://clear-filter"/>
 					</Toolbar>
 					<List id="list" width="auto" class="sapFDynamicPageAlignContent"
 						items="{ path: '/ZTrainer', 
-						sorter:{ path: 'ZNAME', descending: false }, groupHeaderFactory: '.createGroupHeader' }"
+						sorter:{ path: 'ZNAME', descending: false }, 
+						groupHeaderFactory: '.createGroupHeader' }"
 						growing="true" 
 						growingScrollToLoad="true"
 						updateFinished=".onUpdateFinished" 
-						selectionChange=".onSelectionChange"
 						>
 						<items>
-							<ObjectListItem id="ObjectListItem" type="Navigation" press=".onSelectionChange" title="{ZNAME} {ZSURNAME}" number="{ path: 'ZDATE', formatter: '.formatter.Datuma' } years." >
+							<ObjectListItem id="ObjectListItem" 
+											type="Navigation"
+											press=".onSelectionChange"
+											title="{ZNAME} {ZSURNAME}" 
+											number="{ path: 'ZDATE', formatter: '.formatter.Datuma' } {i18n>TrainersDate}" >
 								<firstStatus>
-									<ObjectStatus title="Working From" text="{ path: 'TIMEFROM', formatter: '.formatter.Time' }" state="Success" />
+									<ObjectStatus id="obS1" title="{i18n>TrainersTime1}" text="{ path: 'TIMEFROM', formatter: '.formatter.Time' }" state="Success" />
 								</firstStatus>
 								<secondStatus>
-									<ObjectStatus title="Working Till" text="{ path: 'TIMETO', formatter: '.formatter.Time' }" state="Error"/>
+									<ObjectStatus id="obS2" title="{i18n>TrainersTime2}" text="{ path: 'TIMETO', formatter: '.formatter.Time' }" state="Error"/>
 								</secondStatus>
 							</ObjectListItem>
 						</items>
