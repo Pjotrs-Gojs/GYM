@@ -2,11 +2,14 @@ sap.ui.define([], function () {
 	"use strict";
 
 	return {
-		Time: function(time) {                                                            
+		Time: function(time) {     
+			if(time !== undefined){
 			var timeFormat = sap.ui.core.format.DateFormat.getTimeInstance({pattern: "HH:mm"});
 			var TZOffsetMs = new Date(0).getTimezoneOffset()*60*1000;                             
-			var timeStr = timeFormat.format(new Date(time.ms + TZOffsetMs));                      
-			return timeStr;                                                                       
+			var timeStr = timeFormat.format(new Date(time.ms + TZOffsetMs));    
+			}
+			return timeStr;    
+			
 		},
 		
 		
@@ -26,7 +29,22 @@ sap.ui.define([], function () {
 				var d =  parseInt(days, 10) + " Days";
 				return d;
 			}
+			
 			}
+		},
+		
+		TrainingDate: function(date){
+			// var year = new Date(date).getFullYear();
+			// var month = new Date(date).getMonth();
+			// var day = new Date(date).getDay();
+			// var hours = new Date(date).getHours();
+			// var minut = new Date(date).getMinutes();
+			// var str = new Date(year, month, day, hours, minut);
+			// var full = str.toString().substring(0,21);
+			// return full;
+			var parts = date.match(/\d+/g);
+            var dateFormatted = new Date(parts[0] , parts[1] - 1 , parts[2] , parts[3] , parts[4]);
+            return dateFormatted;
 		}
 	};
 });

@@ -1,0 +1,33 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+		xmlns:f="sap.ui.layout.form"
+		xmlns:core="sap.ui.core">
+	<ResponsivePopover
+			id="AppointmentDetails"
+			title="{title}"
+			class="sapUiPopupWithPadding"
+			placement="Right">
+		<f:SimpleForm
+				id="appointmentForms"
+				editable="false"
+				layout="ResponsiveGridLayout"
+				singleContainerFullSize="false">
+			<Label
+					text="Additional information"
+					labelFor="moreInfo"/>
+			<Text id="moreInfo" text="{text}"/>
+			<Label text="Training ID"/>
+			<Text	text="{TRAININGID}"/>
+			<Label text="From"/>
+			<Text	text="{path: 'TRAININGTIME', formatter: '.formatter.Time'}"/>
+			<Label text="To"/>
+			<Text text="{path: 'ENDTIME', formatter: '.formatter.Time'}"/>
+			<Label text="Trainee Name" />
+			<Text text="{TRAINEENAME}"/>
+			<Label text="Trainee Surname"/>
+			<Text text="{TRAINEESURNAME}"/>
+			<Label text="Training Type"/>
+			<Text text="{NAME}"/>
+		</f:SimpleForm>
+	</ResponsivePopover>
+</core:FragmentDefinition>

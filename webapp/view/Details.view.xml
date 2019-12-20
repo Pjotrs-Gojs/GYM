@@ -4,16 +4,31 @@
 	xmlns:semantic="sap.f.semantic"
 	xmlns:footerbar="sap.ushell.ui.footerbar"
 	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
 	xmlns:l="sap.ui.layout"
 	xmlns:u="sap.ui.unified">
 
 	<semantic:SemanticPage id="page" busy="{detailsView>/busy}" busyIndicatorDelay="{detailsView>/delay}">
 		<semantic:titleHeading>
-			<Title id="titleDetails" text="Trainer: {ZNAME} {ZSURNAME}, Working place - {LOCATION}" level="H1"/>
+			<Title id="titleDetails" text="{i18n>titleHeading} {ZNAME} {ZSURNAME}, Working place - {LOCATION}" level="H1"/>
 		</semantic:titleHeading>
 		<semantic:headerContent>
-			<Title text="Available Training Types: "/>
-			<Table items="{ZTrainerRef}">
+			<Toolbar>
+			<Title text="{i18n>DetailsTypeTableTitle}"/>
+			<ToolbarSpacer/>
+			<Button id="addType" icon="sap-icon://add" press="onShowCB" type="Accept" />
+			<ComboBox
+				id="ComboBoxTypes"
+				showSecondaryValues="true"
+				visible="false"
+				change = "dropDownSelect"
+				items="{/ZTrainingType}">
+				<core:ListItem key="{TRAININGTYPEID}" text="{NAME}" additionalText = "{i18n>ComboBoxAdditionalText} {path: 'DURATION', formatter: '.formatter.Time'}"/>
+			</ComboBox>
+			<Button id="Add" icon="sap-icon://add-activity" press="onAddType" type="Accept" visible="false"/>
+			<Button id="Delete" icon="sap-icon://delete" press="onDeleteType" type="Reject" enabled="false"/>
+			</Toolbar>
+			<Table id="typeTable" items="{ZTrainerRef}" mode="SingleSelectMaster" itemPress="onSelectRow">
 				<items>
 					<ColumnListItem type="Active" id="item1">
 						<cells>
@@ -37,33 +52,27 @@
 				<SinglePlanningCalendar
 					id="SPC1"
 					class="sapUiSmallMarginTop"
-					title= "Trainer Calendar"
+					title= "{i18n>CalendarTitle}"
 					fullDay="false"
-					viewChange="handleViewChange"
-					appointmentSelect="handleAppointmentSelect"
-					headerDateSelect="handleHeaderDateSelect"
-					startDateChange="handleStartDateChange"
-					appointmentDrop="handleAppointmentDrop"
-					appointmentResize="handleAppointmentResize"
-					appointmentCreate="handleAppointmentCreateDnD"
-					moreLinkPress="handleMoreLinkPress">
+					appointments="{ZTrainerAPSRef}"
+					appointmentSelect="onSelectAppointment">
 					<actions>
-						<Button id="newWorkout" press="onAdd" text="Sign up for a Workout" type="Reject" tooltip="Add new appointment" />
+						<Button id="newWorkout" press="onAdd" text="{i18n>newWorkoutButton}" type="Accept" tooltip="Add new appointment" />
+						<Button id="deleteWorkout" text="{i18n>deleteWorkoutButton}" press="onDelete" enabled="false" type="Reject"/>
+						<Button xmlns="sap.m" id="editWorkout" icon="sap-icon://edit" enabled="false" press="onEdit" type="Default"/>
 					</actions>
 					<views>
-						<SinglePlanningCalendarWeekView key="WeekView" title="Week" />
-						<SinglePlanningCalendarWorkWeekView key="WorkWeekView" title="Work Week" />
-						<SinglePlanningCalendarDayView key="DayView" title="Day" />
-						<SinglePlanningCalendarMonthView key="MonthView" title="Month" />
+						<SinglePlanningCalendarWeekView key="WeekView" title="{i18n>WeekViewTitle}" />
+						<SinglePlanningCalendarDayView key="DayView" title="{i18n>DayViewTitle}" />
+						<SinglePlanningCalendarMonthView key="MonthView" title="{i18n>MonthViewTitle}" />
 					</views>
 					<appointments>
 						<u:CalendarAppointment
-							title= "{title}"
-							text= "{text}"
-							type= "{type}"
-							icon= "{icon}"
-							startDate= "{startDate}"
-							endDate= "{endDate}">
+							key="{TRAININGID}"
+							title= "{TRAINEENAME} {TRAINEESURNAME}"
+							icon= "sap-icon://workflow-tasks"
+							startDate= "{path: 'TRAININGSTART', formatter: '.formatter.TrainingDate'}"
+							endDate= "{path: 'TRAININGEND', formatter: '.formatter.TrainingDate'}">
 						</u:CalendarAppointment>
 					</appointments>
 				</SinglePlanningCalendar>

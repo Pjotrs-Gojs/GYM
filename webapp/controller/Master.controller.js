@@ -84,7 +84,7 @@ sap.ui.define([
 		},
 		
 		onSelectionChange: function(oEvent) {
-			var sPath = oEvent.getSource().getBindingContext().getProperty().TRAINERID;
+			var sPath = oEvent.getSource().getSelectedItem().getBindingContext().getObject().TRAINERID;
 			this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
 		var router = sap.ui.core.UIComponent.getRouterFor(this);
 			router.navTo("Details",{

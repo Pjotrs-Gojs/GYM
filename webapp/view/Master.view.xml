@@ -28,7 +28,8 @@
 						groupHeaderFactory: '.createGroupHeader' }"
 						growing="true" 
 						growingScrollToLoad="true"
-						updateFinished=".onUpdateFinished" 
+						selectionChange=".onSelectionChange"
+						mode="SingleSelectMaster"
 						>
 						<items>
 							<ObjectListItem id="ObjectListItem" 
