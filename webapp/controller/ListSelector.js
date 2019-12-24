@@ -76,6 +76,7 @@ sap.ui.define([
 							oList.setSelectedItem(oItem);
 							return true;
 						}
+						return oItem;
 					});
 				}.bind(this),
 				function () {

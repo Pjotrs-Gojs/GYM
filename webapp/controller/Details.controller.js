@@ -8,8 +8,6 @@ sap.ui.define([
 	"sap/m/SinglePlanningCalendarView"
 ], function (BaseController, formatter, JSONModel, DateFormat, unifiedLibrary, Fragment, SinglePlanningCalendarView) {
 	"use strict";
-	
-	// var CalendarDayType = unifiedLibrary.CalendarDayType;
 
 	return BaseController.extend("com.GYM.GYM.controller.Details", {
 		
@@ -47,10 +45,8 @@ sap.ui.define([
 		},
 		
 		_bindView: function (sObjectPath) {
-			// Set busy indicator during view binding
 			var oViewModel = this.getModel("detailsView");
 
-			// If the view was not bound yet its not busy, only if the binding requests data it is set to busy again
 			oViewModel.setProperty("/busy", false);
 
 			this.getView().bindElement({
@@ -74,18 +70,14 @@ sap.ui.define([
 			// No data for the binding
 			if (!oElementBinding.getBoundContext()) {
 				this.getRouter().getTargets().display("detailObjectNotFound");
-				// if object could not be found, the selection in the master list
-				// does not make sense anymore.
 				this.getOwnerComponent().oListSelector.clearMasterListSelection();
 				return;
 
 			}
 
 			var sPath = oElementBinding.getPath(),
-				oResourceBundle = this.getResourceBundle(),
 				oObject = oView.getModel().getObject(sPath),
-				sObjectId = oObject.TRAINERID,
-				oViewModel = this.getModel("detailView");
+				sObjectId = oObject.TRAINERID;
 			this.getOwnerComponent().oListSelector.selectAListItem(sPath);
 			var SPC = this.getView().byId("SPC1"); // Calendar ID
 			SPC.bindElement({ path: "/ZTrainer(" +  sObjectId + ")" });
@@ -98,31 +90,16 @@ sap.ui.define([
 		},
 		
 		_onMetadataLoaded: function () {
-			// Store original busy indicator delay for the detail view
 			var iOriginalViewBusyDelay = this.getView().getBusyIndicatorDelay(),
-				oViewModel = this.getModel("detailsView"),
-				oLineItemTable = this.byId("list");
-				iOriginalLineItemTableBusyDelay = oLineItemTable.getBusyIndicatorDelay();
+				oViewModel = this.getModel("detailsView");
 
-			// Make sure busy indicator is displayed immediately when
-			// detail view is displayed for the first time
-			oViewModel.setProperty("/delay", 0);
-			oViewModel.setProperty("/lineItemTableDelay", 0);
-
-			oLineItemTable.attachEventOnce("updateFinished", function () {
-				// Restore original busy indicator delay for line item table
-				oViewModel.setProperty("/lineItemTableDelay", iOriginalLineItemTableBusyDelay);
-			});
-
-			// Binding the view will set it to not busy - so the view is always busy if it is not bound
-			oViewModel.setProperty("/busy", true);
-			// Restore original busy indicator delay for the detail view
-			oViewModel.setProperty("/delay", iOriginalViewBusyDelay);
+				oViewModel.setProperty("/delay", 0);
+				oViewModel.setProperty("/busy", true);
+				oViewModel.setProperty("/delay", iOriginalViewBusyDelay);
 		},
 		
 		onCloseDetailPress: function () {
 			this.getModel("appView").setProperty("/actionButtonsInfo/midColumn/fullScreen", false);
-			// No item should be selected on master after detail page is closed
 			this.getOwnerComponent().oListSelector.clearMasterListSelection();
 			this.getRouter().navTo("Master");
 		},
@@ -185,7 +162,6 @@ sap.ui.define([
 		onSelectAppointment: function(oEvent){
 			var oAppointment = oEvent.getParameter("appointment");
 			var oView = this.getView();
-			var form = oView.byId("AppointmentDetails");
 				if(oView.byId("SPC1").getSelectedAppointments().length === 0){
 					oView.byId("deleteWorkout").setEnabled(false);
 					oView.byId("editWorkout").setEnabled(false);
@@ -343,7 +319,7 @@ sap.ui.define([
 				oModel.read("/ZTrainer(" + iTrainerID + ")/ZTrainerRef", {
 					success: function(oData, oResponse){
 						var aResults = oData.results;
-				        var TableTrainingTypeID = aResults.map(oElement => oElement.TRAININGTYPEID);
+				        var TableTrainingTypeID = aResults.map(function (oElement) { return oElement.TRAININGTYPEID; });
 				        var accept = 0;
 				        var TrainingTypeIDelement = parseInt(iTrainingTypeID,10);
 				        TableTrainingTypeID.forEach(function(element){
@@ -390,7 +366,7 @@ sap.ui.define([
 		},
 		
 		onDeleteType: function (oEvent) {
-			var oView = this.getView(); // A single property from the bound model
+			var oView = this.getView();
 			var path = this.getModel().createKey("/ZTrainingTypesPerTrainer", {
 				ID: this.gID
 			});
