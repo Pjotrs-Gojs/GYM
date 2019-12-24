@@ -6,13 +6,7 @@ sap.ui.define([
 
 	return BaseObject.extend("com.GYM.GYM.controller.ListSelector", {
 
-		/**
-		 * Provides a convenience API for selecting list items. All the functions will wait until the initial load of the a List passed to the instance by the setBoundMasterList
-		 * function.
-		 * @class
-		 * @public
-		 * @alias com.BandB.BandB.controller.ListSelector
-		 */
+	
 
 		constructor : function () {
 			this._oWhenListHasBeenSet = new Promise(function (fnResolveListHasBeenSet) {

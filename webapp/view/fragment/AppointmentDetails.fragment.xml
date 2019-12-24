@@ -13,20 +13,18 @@
 				layout="ResponsiveGridLayout"
 				singleContainerFullSize="false">
 			<Label
-					text="Additional information"
-					labelFor="moreInfo"/>
-			<Text id="moreInfo" text="{text}"/>
-			<Label text="Training ID"/>
+					text="{i18n>SimpleFormLable}"/>
+			<Label text="{i18n>AppLableTrainerID}"/>
 			<Text	text="{TRAININGID}"/>
-			<Label text="From"/>
+			<Label text="{i18n>AppLableTimeFrom}"/>
 			<Text	text="{path: 'TRAININGTIME', formatter: '.formatter.Time'}"/>
-			<Label text="To"/>
+			<Label text="{i18n>AppLableTimeTo}"/>
 			<Text text="{path: 'ENDTIME', formatter: '.formatter.Time'}"/>
-			<Label text="Trainee Name" />
+			<Label text="{i18n>AppLableName}" />
 			<Text text="{TRAINEENAME}"/>
-			<Label text="Trainee Surname"/>
+			<Label text="{i18n>AppLableSurname}"/>
 			<Text text="{TRAINEESURNAME}"/>
-			<Label text="Training Type"/>
+			<Label text="{i18n>AppLableTrainingType}"/>
 			<Text text="{NAME}"/>
 		</f:SimpleForm>
 	</ResponsivePopover>
