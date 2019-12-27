@@ -1,12 +1,11 @@
-<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" 
-xmlns:f="sap.ui.layout.form">
-	<Dialog title="{i18n>EditWorkoutDialogLable}" id="editAction" contentWidth="15%" afterClose="editDialogAfterclose">
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form">
+	<Dialog title="{i18n>WorkoutDialogLable}" id="dialogAction" contentWidth="15%" afterClose="editDialogAfterclose">
 		<VBox class="sapUiSmallMargin">
 		    <f:SimpleForm
 		         id="SimpleFormDisplay354"
 		         editable="true"
 		         layout="ResponsiveGridLayout"
-		         title="{i18n>EditWorkoutDialogLable}"
+		         title="{i18n>WorkoutDialogLable}"
 		         labelSpanXL="3"
 		     labelSpanL="3"
 		         labelSpanM="3"
@@ -35,14 +34,14 @@ xmlns:f="sap.ui.layout.form">
 				<Label text="{i18n>TrainingDateLable}" required="true"/>
 				<Input id="inputTrainingDate" value="{TRAININGDATE}" type="Date"/>
 				<Label text="{i18n>EditWorkoutName}" required="true"/>
-				<Input id="inputTraineeName" value="{TRAINEENAME}" type="Text"/>
+				<Input id="inputTraineeName" value="{TRAINEENAME}" type="Text" placeholder="Enter Name"/>
 				<Label text="{i18n>EditWorkoutSurname}" required="true"/>
-				<Input id="inputTraineeSurname" value="{TRAINEESURNAME}" type="Text"/>
+				<Input id="inputTraineeSurname" value="{TRAINEESURNAME}" type="Text" placeholder="Enter Surname"/>
 			</f:content>
     	</f:SimpleForm>
     </VBox>
 		<beginButton>
-			<Button text="{i18n>ButtonUpdate}" press="updateDialog"/>
+			<Button text="{i18n>ButtonConfirm}" press="onConfirmDialog"/>
 		</beginButton>
 		<endButton>
 			<Button text="{i18n>ButtonCancel}" press="closeDialog"/>

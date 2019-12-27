@@ -23,8 +23,7 @@ sap.ui.define([
 			this.setModel(oViewModel, "detailsView");			
 			this.getOwnerComponent().getModel().metadataLoaded().then(this._onMetadataLoaded.bind(this));
 			
-			this.addDialog = this.getView().byId("addAction");
-			this.editDialog = this.getView().byId("editAction");
+			this.oDialog = this.getView().byId("dialogAction");
 			this.oAppDetails = this.getView().byId("AppointmentDetails");
 			
 			this.oComboBox = this.getView().byId("ComboBoxTypes");
@@ -92,7 +91,6 @@ sap.ui.define([
 		_onMetadataLoaded: function () {
 			var iOriginalViewBusyDelay = this.getView().getBusyIndicatorDelay(),
 				oViewModel = this.getModel("detailsView");
-
 				oViewModel.setProperty("/delay", 0);
 				oViewModel.setProperty("/busy", true);
 				oViewModel.setProperty("/delay", iOriginalViewBusyDelay);
@@ -102,61 +100,6 @@ sap.ui.define([
 			this.getModel("appView").setProperty("/actionButtonsInfo/midColumn/fullScreen", false);
 			this.getOwnerComponent().oListSelector.clearMasterListSelection();
 			this.getRouter().navTo("Master");
-		},
-		
-		onAdd: function () { // ADD FUNCTION
-			var oView = this.getView();
-			if (!this.addDialog) {
-				this.addDialog = sap.ui.xmlfragment(oView.getId(), "com.GYM.GYM.view.fragment.newWorkout", this);
-				oView.addDependent(this.addDialog);
-			}
-			this.addDialog.open();
-		},
-		dialogAfterclose: function (oEvent) {
-			this.addDialog.destroy();
-			this.addDialog = null;
-		},
-
-		onCloseDialog: function () {
-			this.addDialog.close();
-		},
-		
-		onConfirmDialog: function () {
-			var oView = this.getView(),
-				sTrainingTypeID = oView.byId("selectTrainingTypeID").getSelectedKey(),
-				sTrainingTime = oView.byId("inputTrainingTime").getValue(),
-				sTrainingDate = oView.byId("inputTrainingDate").getValue(),
-				sTraineeName = oView.byId("inputTraineeName").getValue(),
-				sTraineeSurname = oView.byId("inputTraineeSurname").getValue(),
-				iTrainerID = this.getView().getBindingContext().getObject().TRAINERID,
-				oPayload = {};
-				var iTrainingTypeID = parseInt(sTrainingTypeID, 10);
-				var dTrainingDate = new Date(sTrainingDate);
-				var oType = new sap.ui.model.odata.type.DateTime({pattern : "PTHH'H'mm'M'ss'S'"});
-				var a = dTrainingDate.toISOString().substring(0,10);
-				var tTrainingTime = oType.formatValue(new Date(a + " " +sTrainingTime), 'string');
-			oPayload = {
-				TRAININGTYPEID: iTrainingTypeID,
-				TRAININGTIME: tTrainingTime,
-				TRAININGDATE: dTrainingDate,
-				TRAINEENAME: sTraineeName,
-				TRAINEESURNAME: sTraineeSurname,
-				TRAININGID: 0,
-				TRAINERID: iTrainerID
-				};
-			var that = this;
-			oView.getModel().create("/ZTraining", oPayload, {
-				success: function () {
-					sap.m.MessageToast.show("Workout Accept");
-					that.getView().getModel().refresh();
-					that.addDialog.close();
-				},
-				error: function (oResponce) {
-					sap.m.MessageToast.show("Something went wrong: " + oResponce);
-				}
-			});
-			oView.byId("deleteWorkout").setEnabled(false);
-			oView.byId("editWorkout").setEnabled(false);
 		},
 		
 		onSelectAppointment: function(oEvent){
@@ -188,10 +131,16 @@ sap.ui.define([
 		},
 		
 		onDelete: function (oEvent) {
-			var oView = this.getView(); // A single property from the bound model
-			var path = this.getModel().createKey("/ZTraining", {
+			var oView = this.getView(), path;
+			if (oEvent.getParameters().id === "application-Test-url-component---Details--deleteWorkout") {
+			path = this.getModel().createKey("/ZTraining", {
 				TRAININGID: this.key
 			});
+			} else {
+			path = this.getModel().createKey("/ZTrainingTypesPerTrainer", {
+				ID: this.gID
+			});
+			}
 
 			var that = this;
 			oView.getModel().remove(path,  {
@@ -199,27 +148,27 @@ sap.ui.define([
 				success: function (oData, oResponse) {
 					sap.m.MessageToast.show("Delete successful");
 					that.getView().getModel().refresh();
+					that.getView().byId("deleteWorkout").setEnabled(false);
+					that.getView().byId("editWorkout").setEnabled(false);
+					that.getView().byId("Delete").setEnabled(false);
+					that.getView().byId("typeTable").removeSelections();
 				},
 				error: function (oResponse) {
 					sap.m.MessageToast.show("Delete failed" + oResponse);
 				}
 			});
-			oView.byId("deleteWorkout").setEnabled(false);
-			oView.byId("editWorkout").setEnabled(false);
 		},
 		
-		onEdit: function (oEvent) {
+		onOpen: function (oEvent) {
 			var oModel = this.getModel(),
 				oView = this.getView();
+			if (oEvent.getParameters().id === "application-Test-url-component---Details--editWorkout"){
 				
-				
-			// create dialog lazily
-			if (!this.editDialog) {
-				this.editDialog = sap.ui.xmlfragment(oView.getId(), "com.GYM.GYM.view.fragment.editWorkout", this);
-				oView.addDependent(this.editDialog);
+			if (!this.oDialog) {
+				this.oDialog = sap.ui.xmlfragment(oView.getId(), "com.GYM.GYM.view.fragment.editWorkout", this);
+				oView.addDependent(this.oDialog);
 			}
-			
-					this.editDialog.open();
+			this.oDialog.open();
 			oModel.read("/ZTraining(" + this.key + ")", {
 				    success: function(oData, oResponse){
 				    
@@ -238,22 +187,29 @@ sap.ui.define([
 					oView.byId("inputTrainingDate").setValue(dDate);
 					oView.byId("inputTraineeName").setValue(sName);
 					oView.byId("inputTraineeSurname").setValue(sSurname);
+					}
+				});
+			} else {
+				if (!this.oDialog) {
+					this.oDialog = sap.ui.xmlfragment(oView.getId(), "com.GYM.GYM.view.fragment.editWorkout", this);
+					oView.addDependent(this.oDialog);
 				}
-			});
-			
-					
+				this.oDialog.open();
+			}
 		},
 
 		editDialogAfterclose: function () {
-			this.editDialog.destroy();
-			this.editDialog = null;
+			this.oDialog.destroy();
+			this.oDialog = null;
 		},
+		
 		closeDialog: function () {
-			this.editDialog.close();
+			this.oDialog.close();
 		},
-		updateDialog: function () {
-			var oView = this.getView(),
-				sName = oView.byId("inputTraineeName").getValue(),
+		
+		onConfirmDialog: function (oEvent) {
+			var oView = this.getView();
+			var sName = oView.byId("inputTraineeName").getValue(),
 				sSurname = oView.byId("inputTraineeSurname").getValue(),
 				sDate = oView.byId("inputTrainingDate").getValue(),
 				sTime = oView.byId("inputTrainingTime").getValue(),
@@ -277,18 +233,33 @@ sap.ui.define([
 					TRAINERID: iTrainerID
 				});
 			var that = this;
+			if (oEvent.getParameters().id === "application-Test-url-component---Details--editWorkout"){
 			oView.getModel().update(path, oPayload, {
 				success: function () {
 					sap.m.MessageToast.show("Record updated");
 					that.getView().getModel().refresh();
-					that.editDialog.close();
-					oView.byId("deleteWorkout").setEnabled(false);
-					oView.byId("editWorkout").setEnabled(false);
+					that.oDialog.close();
+					that.getView().byId("deleteWorkout").setEnabled(false);
+					that.getView().byId("editWorkout").setEnabled(false);
+				},
+				error: function (oResponce) {
+					sap.m.MessageToast.show("Something went wrong: " + oResponce);
+					}
+				});
+			} else {
+				oView.getModel().create("/ZTraining", oPayload, {
+				success: function () {
+					sap.m.MessageToast.show("Workout Accept");
+					that.getView().getModel().refresh();
+					that.oDialog.close();
+					that.getView().byId("deleteWorkout").setEnabled(false);
+					that.getView().byId("editWorkout").setEnabled(false);
 				},
 				error: function (oResponce) {
 					sap.m.MessageToast.show("Something went wrong: " + oResponce);
 				}
 			});
+			}
 		},
 		
 		onShowCB: function(){
@@ -363,26 +334,6 @@ sap.ui.define([
 				this.gID = this.getView().byId("typeTable").getSelectedItem().getBindingContext().getObject().ID;
 
 			}
-		},
-		
-		onDeleteType: function (oEvent) {
-			var oView = this.getView();
-			var path = this.getModel().createKey("/ZTrainingTypesPerTrainer", {
-				ID: this.gID
-			});
-
-			var that = this;
-			oView.getModel().remove(path,  {
-				method: "DELETE",
-				success: function (oData, oResponse) {
-					sap.m.MessageToast.show("Type Deleted successful");
-					that.getView().getModel().refresh();
-				},
-				error: function (oResponse) {
-					sap.m.MessageToast.show("Delete failed" + oResponse);
-				}
-			});
-			oView.byId("Delete").setEnabled(false);
 		}
 		
 	});
