@@ -33,10 +33,10 @@
 				<Input id="inputTrainingTime" value="{path: 'TRAININGTIME', formatter: '.formatter.Time'}" type="Time"/>
 				<Label text="{i18n>TrainingDateLable}" required="true"/>
 				<Input id="inputTrainingDate" value="{TRAININGDATE}" type="Date"/>
-				<Label text="{i18n>EditWorkoutName}" required="true"/>
-				<Input id="inputTraineeName" value="{TRAINEENAME}" type="Text" placeholder="Enter Name"/>
-				<Label text="{i18n>EditWorkoutSurname}" required="true"/>
-				<Input id="inputTraineeSurname" value="{TRAINEESURNAME}" type="Text" placeholder="Enter Surname"/>
+				<Label text="{i18n>WorkoutName}" required="true"/>
+				<Input id="inputTraineeName" value="{TRAINEENAME}" type="Text" placeholder="{i18n>NamePlaceHolder}"/>
+				<Label text="{i18n>WorkoutSurname}" required="true"/>
+				<Input id="inputTraineeSurname" value="{TRAINEESURNAME}" type="Text" placeholder="{i18n>SurnamePlaceHolder}"/>
 			</f:content>
     	</f:SimpleForm>
     </VBox>

@@ -165,7 +165,7 @@ sap.ui.define([
 			if (oEvent.getParameters().id === "application-Test-url-component---Details--editWorkout"){
 				
 			if (!this.oDialog) {
-				this.oDialog = sap.ui.xmlfragment(oView.getId(), "com.GYM.GYM.view.fragment.editWorkout", this);
+				this.oDialog = sap.ui.xmlfragment(oView.getId(), "com.GYM.GYM.view.fragment.WorkoutDialog", this);
 				oView.addDependent(this.oDialog);
 			}
 			this.oDialog.open();
@@ -191,7 +191,7 @@ sap.ui.define([
 				});
 			} else {
 				if (!this.oDialog) {
-					this.oDialog = sap.ui.xmlfragment(oView.getId(), "com.GYM.GYM.view.fragment.editWorkout", this);
+					this.oDialog = sap.ui.xmlfragment(oView.getId(), "com.GYM.GYM.view.fragment.WorkoutDialog", this);
 					oView.addDependent(this.oDialog);
 				}
 				this.oDialog.open();
@@ -219,7 +219,6 @@ sap.ui.define([
 				var dDate = new Date(sDate);
 				var a = dDate.toISOString().substring(0,10);
 				var tTime = oType.formatValue(new Date(a + " " +sTime), 'string');
-				
 			var that = this;
 			if (oEvent.getParameters().id === "application-Test-url-component---Details--editWorkout"){
 				var oPayload = {
@@ -248,6 +247,15 @@ sap.ui.define([
 					}
 				});
 			} else {
+				oPayload = {
+				TRAININGTYPEID: iTrainingTypeID,
+				TRAININGTIME: tTime,
+				TRAININGDATE: dDate,
+				TRAINEENAME: sName,
+				TRAINEESURNAME: sSurname,
+				TRAININGID: 0,
+				TRAINERID: iTrainerID
+				};
 				oView.getModel().create("/ZTraining", oPayload, {
 				success: function () {
 					sap.m.MessageToast.show("Workout Accept");
