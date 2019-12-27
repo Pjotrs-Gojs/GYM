@@ -219,6 +219,9 @@ sap.ui.define([
 				var dDate = new Date(sDate);
 				var a = dDate.toISOString().substring(0,10);
 				var tTime = oType.formatValue(new Date(a + " " +sTime), 'string');
+				
+			var that = this;
+			if (oEvent.getParameters().id === "application-Test-url-component---Details--editWorkout"){
 				var oPayload = {
 					TRAINEENAME: sName,
 					TRAINEESURNAME: sSurname,
@@ -232,8 +235,6 @@ sap.ui.define([
 					TRAININGID: this.key,
 					TRAINERID: iTrainerID
 				});
-			var that = this;
-			if (oEvent.getParameters().id === "application-Test-url-component---Details--editWorkout"){
 			oView.getModel().update(path, oPayload, {
 				success: function () {
 					sap.m.MessageToast.show("Record updated");
