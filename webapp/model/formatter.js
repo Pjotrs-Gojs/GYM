@@ -5,7 +5,7 @@ sap.ui.define([], function () {
 		Time: function(time) {     
 			if(time !== undefined){
 			var timeFormat = sap.ui.core.format.DateFormat.getTimeInstance({pattern: "HH:mm"});
-			var TZOffsetMs = new Date(0).getTimezoneOffset()*60*1000;                             
+			var TZOffsetMs = new Date(0).getTimezoneOffset() * 60 * 1000;                             
 			var timeStr = timeFormat.format(new Date(time.ms + TZOffsetMs));    
 			}
 			return timeStr;    
@@ -15,9 +15,9 @@ sap.ui.define([], function () {
 		
 		Datuma: function(gadi){
 			var pop = new Date() - new Date(gadi);
-			var years = pop/1000/60/60/24/30/12;
-			var month = pop/1000/60/60/24/30;
-			var days = pop/1000/60/60/24;
+			var years = pop / 1000 / 60 / 60 / 24 / 30 / 12;
+			var month = pop / 1000 / 60 / 60 / 24 / 30;
+			var days = pop / 1000 / 60 / 60 /24;
 			if( parseInt(years, 10) !== 0){
 				var y =  parseInt(years, 10) + " Years";
 				return y;

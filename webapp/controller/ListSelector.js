@@ -12,10 +12,7 @@ sap.ui.define([
 			this._oWhenListHasBeenSet = new Promise(function (fnResolveListHasBeenSet) {
 				this._fnResolveListHasBeenSet = fnResolveListHasBeenSet;
 			}.bind(this));
-			// This promise needs to be created in the constructor, since it is allowed to
-			// invoke selectItem functions before calling setBoundMasterList
 			this.oWhenListLoadingIsDone = new Promise(function (fnResolve, fnReject) {
-				// Used to wait until the setBound masterList function is invoked
 				this._oWhenListHasBeenSet
 					.then(function (oList) {
 						oList.getBinding("items").attachEventOnce("dataReceived",
@@ -25,7 +22,6 @@ sap.ui.define([
 										list : oList
 									});
 								} else {
-									// No items in the list
 									fnReject({
 										list : oList
 									});
@@ -36,23 +32,11 @@ sap.ui.define([
 			}.bind(this));
 		},
 
-		/**
-		 * A bound list should be passed in here. Should be done, before the list has received its initial data from the server.
-		 * May only be invoked once per ListSelector instance.
-		 * @param {sap.m.List} oList The list all the select functions will be invoked on.
-		 * @public
-		 */
 		setBoundMasterList : function (oList) {
 			this._oList = oList;
 			this._fnResolveListHasBeenSet(oList);
 		},
 
-		/**
-		 * Tries to select and scroll to a list item with a matching binding context. If there are no items matching the binding context or the ListMode is none,
-		 * no selection/scrolling will happen
-		 * @param {string} sBindingPath the binding path matching the binding path of a list item
-		 * @public
-		 */
 		selectAListItem : function (sBindingPath) {
 
 			this.oWhenListLoadingIsDone.then(
@@ -66,7 +50,6 @@ sap.ui.define([
 
 					oSelectedItem = oList.getSelectedItem();
 
-					// skip update if the current selection is already matching the object path
 					if (oSelectedItem && oSelectedItem.getBindingContext().getPath() === sBindingPath) {
 						return;
 					}
@@ -85,13 +68,7 @@ sap.ui.define([
 			);
 		},
 
-		/**
-		 * Removes all selections from master list.
-		 * Does not trigger 'selectionChange' event on master list, though.
-		 * @public
-		 */
 		clearMasterListSelection : function () {
-			//use promise to make sure that 'this._oList' is available
 			this._oWhenListHasBeenSet.then(function () {
 				this._oList.removeSelections(true);
 			}.bind(this));

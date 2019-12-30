@@ -16,7 +16,7 @@
 			<Toolbar>
 			<Title text="{i18n>DetailsTypeTableTitle}"/>
 			<ToolbarSpacer/>
-			<Button id="addType" icon="sap-icon://add" press="onShowCB" type="Accept" />
+			<Button id="addType" icon="sap-icon://add" press="onShowCB" type="Accept" tooltip="Open Add new Type"/>
 			<ComboBox
 				id="ComboBoxTypes"
 				showSecondaryValues="true"
@@ -25,10 +25,10 @@
 				items="{/ZTrainingType}">
 				<core:ListItem key="{TRAININGTYPEID}" text="{NAME}" additionalText = "{i18n>ComboBoxAdditionalText} {path: 'DURATION', formatter: '.formatter.Time'}"/>
 			</ComboBox>
-			<Button id="Add" icon="sap-icon://add-activity" press="onAddType" type="Accept" visible="false"/>
-			<Button id="Delete" icon="sap-icon://delete" press="onDelete" type="Reject" enabled="false"/>
+			<Button id="Add" icon="sap-icon://add-activity" press="onAddType" type="Accept" visible="false" tooltip="Add new Type"/>
+			<Button id="Delete" icon="sap-icon://delete" press="onDelete" type="Reject" enabled="false" tooltip="Delete Type"/>
 			</Toolbar>
-			<Table id="typeTable" items="{ZTrainerRef}" mode="SingleSelectMaster" itemPress="onSelectRow">
+			<Table id="typeTable" items="{ZTrainerRef}" mode="SingleSelectMaster" itemPress="onSelectRow" headerText="Types" >
 				<items>
 					<ColumnListItem type="Active" id="item1">
 						<cells>
@@ -58,8 +58,8 @@
 					appointmentSelect="onSelectAppointment">
 					<actions>
 						<Button id="newWorkout" press="onOpen" text="{i18n>newWorkoutButton}" type="Accept" tooltip="Add new appointment" />
-						<Button id="deleteWorkout" text="{i18n>deleteWorkoutButton}" press="onDelete" enabled="false" type="Reject"/>
-						<Button xmlns="sap.m" id="editWorkout" icon="sap-icon://edit" enabled="false" press="onOpen" type="Default"/>
+						<Button id="deleteWorkout" text="{i18n>deleteWorkoutButton}" press="onDelete" enabled="false" type="Reject" tooltip="Delete appointment"/>
+						<Button xmlns="sap.m" id="editWorkout" icon="sap-icon://edit" enabled="false" press="onOpen" type="Default" tooltip="Edit appointment"/>
 					</actions>
 					<views>
 						<SinglePlanningCalendarWeekView key="WeekView" title="{i18n>WeekViewTitle}" />

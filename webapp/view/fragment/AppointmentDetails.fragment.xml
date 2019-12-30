@@ -9,6 +9,7 @@
 			placement="Auto">
 		<f:SimpleForm
 				id="appointmentForms"
+				title="Calendar Appointment"
 				editable="false"
 				layout="ResponsiveGridLayout"
 				singleContainerFullSize="false">

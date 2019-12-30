@@ -2,8 +2,8 @@ sap.ui.define([
 	"./BaseController",
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
-	'sap/ui/model/Filter',
-	'sap/ui/model/FilterOperator'
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
 ], function (BaseController, JSONModel, formatter, Filter, FilterOperator) {
 	"use strict";
 
@@ -15,14 +15,10 @@ sap.ui.define([
 				// Control state model
 			var oList = this.byId("list"),
 				oViewModel = this._createViewModel(),
-				// Put down master list's original value for busy indicator delay,
-				// so it can be restored later on. Busy handling on the master list is
-				// taken care of by the master list itself.
 				iOriginalBusyDelay = oList.getBusyIndicatorDelay();
 
 
 			this._oList = oList;
-			// keeps the filter and search state
 			this._oListFilterState = {
 				aFilter : [],
 				aSearch : []
@@ -91,7 +87,6 @@ sap.ui.define([
 			});
 		},
 		_onMasterMatched :  function() {
-			//Set the layout property of the FCL control to 'OneColumn'
 			this.getModel("appView").setProperty("/layout", "OneColumn");
 		}
 	});

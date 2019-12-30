@@ -178,8 +178,8 @@ sap.ui.define([
 				sDate = oData.TRAININGDATE,
 				iTrainingTypeID = oData.TRAININGTYPEID,
 				tTime = formatter.Time(sTime);
-				var oType = new sap.ui.model.odata.type.DateTime({pattern: 'yyyy-MM-dd'});
-				var dDate = oType.formatValue(new Date(sDate), 'string');
+				var oType = new sap.ui.model.odata.type.DateTime({pattern: "yyyy-MM-dd"});
+				var dDate = oType.formatValue(new Date(sDate), "string");
 				
 				
 					oView.byId("selectTrainingTypeID").setSelectedKey(iTrainingTypeID);
@@ -189,12 +189,14 @@ sap.ui.define([
 					oView.byId("inputTraineeSurname").setValue(sSurname);
 					}
 				});
+				this.ConfirmButtonPress = 0;
 			} else {
 				if (!this.oDialog) {
 					this.oDialog = sap.ui.xmlfragment(oView.getId(), "com.GYM.GYM.view.fragment.WorkoutDialog", this);
 					oView.addDependent(this.oDialog);
 				}
 				this.oDialog.open();
+				this.ConfirmButtonPress = 1;
 			}
 		},
 
@@ -218,9 +220,9 @@ sap.ui.define([
 				var oType = new sap.ui.model.odata.type.DateTime({pattern : "PTHH'H'mm'M'ss'S'"});
 				var dDate = new Date(sDate);
 				var a = dDate.toISOString().substring(0,10);
-				var tTime = oType.formatValue(new Date(a + " " +sTime), 'string');
+				var tTime = oType.formatValue(new Date(a + " " + sTime), "string");
 			var that = this;
-			if (oEvent.getParameters().id === "application-Test-url-component---Details--editWorkout"){
+			if ( this.ConfirmButtonPress === 0 ){
 				var oPayload = {
 					TRAINEENAME: sName,
 					TRAINEESURNAME: sSurname,
