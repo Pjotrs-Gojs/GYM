@@ -5,7 +5,7 @@
 			xmlns:core="sap.ui.core">
 	<App id="app">
 		<pages>
-			<Page id="page" showHeader="false">
+			<Page id="page" showHeader="false" title="Page">
 				<content>
 					<Toolbar>
 						<Title text="{i18n>TrainersTitle}"/>
@@ -20,7 +20,7 @@
 							}">
 							<core:ListItem key="{NAME}" text="{NAME}" additionalText = "{STREET},{STREETNUM}"/>
 						</ComboBox>
-						<Button id="x" press="removeSelection" icon="sap-icon://clear-filter"/>
+						<Button id="x" press="removeSelection" icon="sap-icon://clear-filter" tooltip="Remove Selection"/>
 					</Toolbar>
 					<List id="list" width="auto" class="sapFDynamicPageAlignContent"
 						items="{ path: '/ZTrainer', 
