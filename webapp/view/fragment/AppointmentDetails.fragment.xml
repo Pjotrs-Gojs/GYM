@@ -6,7 +6,7 @@
 			id="AppointmentDetails"
 			title="{title}"
 			class="sapUiPopupWithPadding"
-			placement="Right">
+			placement="Auto">
 		<f:SimpleForm
 				id="appointmentForms"
 				editable="false"

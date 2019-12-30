@@ -105,11 +105,7 @@ sap.ui.define([
 		onSelectAppointment: function(oEvent){
 			var oAppointment = oEvent.getParameter("appointment");
 			var oView = this.getView();
-				if(oView.byId("SPC1").getSelectedAppointments().length === 0){
-					oView.byId("deleteWorkout").setEnabled(false);
-					oView.byId("editWorkout").setEnabled(false);
-					this.oAppDetails.close();
-				} else {
+				if(oAppointment.getSelected()){
 					oView.byId("deleteWorkout").setEnabled(true);
 					oView.byId("editWorkout").setEnabled(true);
 					this.key = oEvent.getParameters().appointment.getKey();
@@ -127,6 +123,10 @@ sap.ui.define([
 						this.oAppDetails.openBy(oAppointment);
 						this.oAppDetails.setBindingContext(oAppointment.getBindingContext());
 					}
+				} else {
+					oView.byId("deleteWorkout").setEnabled(false);
+					oView.byId("editWorkout").setEnabled(false);
+					this.oAppDetails.close();
 				}
 		},
 		
