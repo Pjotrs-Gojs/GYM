@@ -70,6 +70,7 @@
 						<u:CalendarAppointment
 							key="{TRAININGID}"
 							title= "{TRAINEENAME} {TRAINEESURNAME}"
+							type="{path: 'NAME', formatter: '.formatter.TrainingType'}"
 							icon= "sap-icon://workflow-tasks"
 							startDate= "{path: 'TRAININGSTART', formatter: '.formatter.TrainingDate'}"
 							endDate= "{path: 'TRAININGEND', formatter: '.formatter.TrainingDate'}">

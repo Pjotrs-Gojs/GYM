@@ -3,12 +3,12 @@ sap.ui.define([
 	"../model/formatter",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/format/DateFormat",
-	"sap/ui/unified/library",
 	"sap/ui/core/Fragment",
 	"sap/m/SinglePlanningCalendarView"
-], function (BaseController, formatter, JSONModel, DateFormat, unifiedLibrary, Fragment, SinglePlanningCalendarView) {
+], function (BaseController, formatter, JSONModel, DateFormat, Fragment, SinglePlanningCalendarView) {
 	"use strict";
 
+	
 	return BaseController.extend("com.GYM.GYM.controller.Details", {
 		
 		formatter: formatter,

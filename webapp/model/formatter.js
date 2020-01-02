@@ -1,5 +1,8 @@
-sap.ui.define([], function () {
+sap.ui.define([
+	"sap/ui/unified/library"], function (unifiedLibrary) {
 	"use strict";
+
+	var CalendarDayType = unifiedLibrary.CalendarDayType;
 
 	return {
 		Time: function(time) {     
@@ -34,17 +37,23 @@ sap.ui.define([], function () {
 		},
 		
 		TrainingDate: function(date){
-			// var year = new Date(date).getFullYear();
-			// var month = new Date(date).getMonth();
-			// var day = new Date(date).getDay();
-			// var hours = new Date(date).getHours();
-			// var minut = new Date(date).getMinutes();
-			// var str = new Date(year, month, day, hours, minut);
-			// var full = str.toString().substring(0,21);
-			// return full;
 			var parts = date.match(/\d+/g);
             var dateFormatted = new Date(parts[0] , parts[1] - 1 , parts[2] , parts[3] , parts[4]);
-            return dateFormatted;
+            	return dateFormatted;
+		},
+		
+		TrainingType: function(type){
+			var tt;
+			if (type === "Not Bad!"){
+				tt = CalendarDayType.Type10;
+			}else if(type === "Loser."){
+				tt = CalendarDayType.Type06;
+			}else if(type === "Monster!"){
+				tt = CalendarDayType.Type02;
+			}else if(type === "Who are you?"){
+				tt = CalendarDayType.Type03;	}
+				else {	tt = CalendarDayType.Type17;	}	
+				return tt;
 		}
 	};
 });
