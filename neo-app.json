@@ -44,6 +44,22 @@
         "name": "BB"
       },
       "description": "BB"
+    },
+    {
+      "path": "/com/GYM/GYM.xsodata/",
+      "target": {
+        "type": "destination",
+        "name": "donotchangepasswords"
+      },
+      "description": "donotchangepasswords"
+    },
+    {
+      "path": "/com/GYM/Service/GYM.xsodata/",
+      "target": {
+        "type": "destination",
+        "name": "donotchangepasswords"
+      },
+      "description": "donotchangepasswords"
     }
   ],
   "sendWelcomeFileRedirect": true

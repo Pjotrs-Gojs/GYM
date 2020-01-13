@@ -20,7 +20,7 @@
 			<Label text="{i18n>AppLableTimeFrom}"/>
 			<Text	text="{path: 'TRAININGTIME', formatter: '.formatter.Time'}"/>
 			<Label text="{i18n>AppLableTimeTo}"/>
-			<Text text="{path: 'ENDTIME', formatter: '.formatter.Time'}"/>
+			<Text text="{path: 'TRAININGENDTIME', formatter: '.formatter.Time'}"/>
 			<Label text="{i18n>AppLableName}" />
 			<Text text="{TRAINEENAME}"/>
 			<Label text="{i18n>AppLableSurname}"/>

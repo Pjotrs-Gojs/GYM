@@ -72,8 +72,8 @@
 							title= "{TRAINEENAME} {TRAINEESURNAME}"
 							type="{path: 'NAME', formatter: '.formatter.TrainingType'}"
 							icon= "sap-icon://workflow-tasks"
-							startDate= "{path: 'TRAININGSTART', formatter: '.formatter.TrainingDate'}"
-							endDate= "{path: 'TRAININGEND', formatter: '.formatter.TrainingDate'}">
+							startDate= "{path: 'STARTTIME', formatter: '.formatter.TrainingDate'}"
+							endDate= "{path: 'ENDTIME', formatter: '.formatter.TrainingDate'}">
 						</u:CalendarAppointment>
 					</appointments>
 				</SinglePlanningCalendar>

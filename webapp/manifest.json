@@ -15,10 +15,10 @@
 		},
 		"dataSources": {
 			"GYM.xsodata": {
-				"uri": "/BB/com/GYM/Service/GYM.xsodata/",
+				"uri": "/com/GYM/Service/GYM.xsodata/com/GYM/Service/GYM.xsodata/",
 				"type": "OData",
 				"settings": {
-					"localUri": "localService/metadata.xml"
+					"localUri": "localService/GYM.xsodata/metadata.xml"
 				}
 			}
 		}
@@ -64,7 +64,7 @@
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
 					"bundleName": "com.GYM.GYM.i18n.i18n",
-					"bundleLocale" : "en-US"
+					"bundleLocale": "en-US"
 				}
 			},
 			"": {
@@ -72,17 +72,18 @@
 				"settings": {
 					"defaultOperationMode": "Server",
 					"defaultBindingMode": "OneWay",
-					"defaultCountMode": "Request",
-					"useBatch": false
+					"defaultCountMode": "Request"
 				},
 				"dataSource": "GYM.xsodata",
 				"preload": true
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		},
 		"routing": {
 			"config": {
@@ -93,15 +94,21 @@
 				"controlId": "layout",
 				"controlAggregation": "beginColumnPages"
 			},
-			"routes": [{
-				"pattern": "",
-				"name": "Master",
-				"target": "Master"
-			}, {
-				"pattern": "Trainer/{TrainerID}",
-				"name": "Details",
-				"target": ["Master", "Details"]
-			}],
+			"routes": [
+				{
+					"pattern": "",
+					"name": "Master",
+					"target": "Master"
+				},
+				{
+					"pattern": "Trainer/{TrainerID}",
+					"name": "Details",
+					"target": [
+						"Master",
+						"Details"
+					]
+				}
+			],
 			"targets": {
 				"Master": {
 					"viewName": "Master",
