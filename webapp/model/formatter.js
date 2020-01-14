@@ -20,7 +20,7 @@ sap.ui.define([
 			var pop = new Date() - new Date(gadi);
 			var years = pop / 1000 / 60 / 60 / 24 / 30 / 12;
 			var month = pop / 1000 / 60 / 60 / 24 / 30;
-			var days = pop / 1000 / 60 / 60 /24;
+			var days = pop / 1000 / 60 / 60 / 24;
 			if( parseInt(years, 10) !== 0){
 				var y =  parseInt(years, 10) + " Years";
 				return y;

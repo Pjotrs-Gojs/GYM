@@ -131,6 +131,9 @@ sap.ui.define([
 		},
 		
 		onDelete: function (oEvent) {
+			var a = new sap.m.BusyDialog();
+			a.open();
+			a.setBusyIndicatorDelay(40000);
 			var oView = this.getView(), path;
 			if (oEvent.getParameters().id === "application-Test-url-component---Details--deleteWorkout") {
 			path = this.getModel().createKey("/ZTraining", {
@@ -157,6 +160,7 @@ sap.ui.define([
 					sap.m.MessageToast.show("Delete failed" + oResponse);
 				}
 			});
+			a.close();
 		},
 		
 		onOpen: function (oEvent) {
@@ -210,6 +214,9 @@ sap.ui.define([
 		},
 		
 		onConfirmDialog: function (oEvent) {
+			var b = new sap.m.BusyDialog();
+			b.open();
+			b.setBusyIndicatorDelay(40000);
 			var oView = this.getView();
 			var sName = oView.byId("inputTraineeName").getValue(),
 				sSurname = oView.byId("inputTraineeSurname").getValue(),
@@ -271,6 +278,7 @@ sap.ui.define([
 				}
 			});
 			}
+			b.close();
 		},
 		
 		onShowCB: function(){
@@ -288,6 +296,10 @@ sap.ui.define([
 		},
 		
 		onAddType: function(){
+			var a = new sap.m.BusyDialog();
+			a.open();
+			a.setBusyIndicatorDelay(40000);
+				// this.getView().byId("typeTable").setBusy(true);
 			var oView = this.getView(),
 				oModel = this.getModel(),
 			iTrainingTypeID = this.oComboBox.getSelectedKey(),
@@ -327,6 +339,7 @@ sap.ui.define([
 						}
 					}
 				});
+				a.close();
 		},
 		
 		onSelectRow: function(){
