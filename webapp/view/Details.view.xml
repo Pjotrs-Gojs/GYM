@@ -10,7 +10,7 @@
 
 	<semantic:SemanticPage id="page" busy="{detailsView>/busy}" busyIndicatorDelay="{detailsView>/delay}">
 		<semantic:titleHeading>
-			<Title id="titleDetails" text="{i18n>titleHeading} {ZNAME} {ZSURNAME}, Working place - {LOCATION}" level="H1"/>
+			<Title id="titleDetails" text="{i18n>titleHeading} {ZNAME} {ZSURNAME}, {i18n>WorkingPlace} - {LOCATION}" level="H1"/>
 		</semantic:titleHeading>
 		<semantic:headerContent>
 			<Toolbar>
